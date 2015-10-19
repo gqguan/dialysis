@@ -1,5 +1,4 @@
-program DD1S
-
+program dd1s
 ! Nomenclature:
 ! DD means the dynamic dialysis
 ! 1  means the 1-D model
@@ -38,6 +37,8 @@ program DD1S
 ! Revision log:
 ! Refer to https://github.com/gqguan/dialysis
 
-implicit none
+use ComParams
+
+call dd1s_sol()
 
 end program

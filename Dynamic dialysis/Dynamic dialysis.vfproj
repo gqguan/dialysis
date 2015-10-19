@@ -28,5 +28,8 @@
 		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		<File RelativePath="..\bin\libiode_ia32.lib"/></Filter>
 		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
-		<File RelativePath=".\main.F90"/></Filter></Files>
+		<File RelativePath=".\main.F90"/>
+		<File RelativePath=".\prepare.F90"/>
+		<File RelativePath=".\solver.F90"/>
+		<File RelativePath=".\supplement.F90"/></Filter></Files>
 	<Globals/></VisualStudioProject>
