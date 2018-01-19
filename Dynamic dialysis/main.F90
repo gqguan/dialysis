@@ -12,7 +12,7 @@ program dd1s
 ! "20151014 Model of dynamic dialysis".
 
 ! Application example:
-! For a typical application, where the ethanol and water solution is fed 
+! For a typical application, where the ethanol and water binary solution is fed 
 ! in the tube side and the water is fed in the shell side, 
 ! the tube-side solute will permeate into the shell side through the membrane
 ! due to the concentration gradient. The shell-side solvent will also reversely
@@ -22,10 +22,12 @@ program dd1s
 ! A constant pressure gradient along the flowing path was also assumed to
 ! simplify the equations of the momentum balance.
 
-! Program structure:
+! Program file structure:
 ! main.f90 
 ! |-- prepare.f90    (modules of collecting the variables and parameters)
+!     MODULE ComParams
 ! |-- solver.f90     (modules of modelling equations and ode solver)
+!     SUBROUTINE dd1s_sol()
 ! |-- supplement.f90 (modules of subroutines and customized functions)
 
 ! License:

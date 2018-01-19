@@ -83,7 +83,7 @@
       RETURN
       END SUBROUTINE
 
-		 
+
 ! ********************** Initial condition for odes **************  
       SUBROUTINE dd1s_ic(n,z_end,y)
 ! The routine initializes the size of the system n, the end of 
@@ -118,58 +118,49 @@
       DOUBLE PRECISION AM, alpha(2), NMA, NMB
 
 !     Initiation
-			call Initiate()
+      call Initiate()
 
-!			Influent properties
-         
-         AM = PI*ID(1)*Length
-         
-         alpha(1) = four*Length/ID(1)
-         alpha(2) = four*ID(1)*Length/(ID(2)*ID(2)-ID(1)*ID(1))
-         
-         NMA = PA/Thickness*(y(1)*InitMassConcA(1)-y(3)*InitMassConcA(2))
-         NMB = PB/Thickness*(y(2)*InitMassConcB(2)-y(4)*InitMassConcB(1))
-         
-         InitMassFluxA(1) = InitMassConcA(1)*InitVelocity(1)
-         InitMassFluxB(1) = InitMassConcB(1)*InitVelocity(1)
-         InitMassFluxA(2) = InitMassConcA(2)*InitVelocity(2)
-         InitMassFluxB(2) = InitMassConcB(2)*InitVelocity(2)
-         
-         InitMassFlux(1) = InitMassFluxA(1)+InitMassFluxB(1)
-         InitMassFlux(2) = InitMassFluxA(2)+InitMassFluxB(2)
-         
-         DimlessPresGrad(1) = (Pressure_out(1)-Pressure_in(1))/InitMassFlux(1)/InitVelocity(1)
-         DimlessPresGrad(2) = (Pressure_out(2)-Pressure_in(2))/InitMassFlux(2)/InitVelocity(2)
-         
-         f(1) = (-alpha(1)*NMA/InitMassFluxA(1)-y(1)*AM*(NMA*SpecVolA-NMB*SpecVolB)/InitVelocity(1))/y(5)
-         f(2) = (+alpha(1)*NMB/InitMassFluxB(1)-y(2)*AM*(NMA*SpecVolA-NMB*SpecVolB)/InitVelocity(1))/y(5)
-         f(3) = (+alpha(2)*NMA/InitMassFluxA(2)-y(3)*AM*(NMB*SpecVolB-NMA*SpecVolA)/InitVelocity(2))/y(6)
-         f(4) = (-alpha(2)*NMB/InitMassFluxB(2)-y(4)*AM*(NMB*SpecVolB-NMA*SpecVolA)/InitVelocity(2))/y(6)
-         f(5) = y(7)
-         f(6) = y(8)
-!         DimlessDensityGrad(1) = InitMassFracA(1)*f(1)+InitMassFracB(1)*f(2)
-!         DimlessDensityGrad(2) = InitMassFracA(2)*f(3)+InitMassFracB(2)*f(4)
-!         DimlessDensity(1) = InitMassFracA(1)*y(1)+InitMassFracB(1)*y(2)
-!         DimlessDensity(2) = InitMassFracA(2)*y(3)+InitMassFracB(2)*y(4)
-         f(7) = InitRe(1)/two*(DimlessPresGrad(1)+y(5)*y(5)*(InitMassFracA(1)*f(1)+InitMassFracB(1)*f(2))+two*(InitMassFracA(1)*y(1)+InitMassFracB(1)*y(2))*y(5)*y(7))
-         f(8) = InitRe(2)/two*(DimlessPresGrad(2)+y(6)*y(6)*(InitMassFracA(2)*f(3)+InitMassFracB(2)*f(4))+two*(InitMassFracA(2)*y(3)+InitMassFracB(2)*y(4))*y(6)*y(8))
+!     Influent properties
+
+      AM = PI*ID(1)*Length
+      alpha(1) = four*Length/ID(1)
+      alpha(2) = four*ID(1)*Length/(ID(2)*ID(2)-ID(1)*ID(1))
+      NMA = PA/Thickness*(y(1)*InitMassConcA(1)-y(3)*InitMassConcA(2))
+      NMB = PB/Thickness*(y(2)*InitMassConcB(2)-y(4)*InitMassConcB(1))
+      InitMassFluxA(1) = InitMassConcA(1)*InitVelocity(1)
+      InitMassFluxB(1) = InitMassConcB(1)*InitVelocity(1)
+      InitMassFluxA(2) = InitMassConcA(2)*InitVelocity(2)
+      InitMassFluxB(2) = InitMassConcB(2)*InitVelocity(2)
+      InitMassFlux(1) = InitMassFluxA(1)+InitMassFluxB(1)
+      InitMassFlux(2) = InitMassFluxA(2)+InitMassFluxB(2)
+      DimlessPresGrad(1) = (Pressure_out(1)-Pressure_in(1))/InitMassFlux(1)/InitVelocity(1)
+      DimlessPresGrad(2) = (Pressure_out(2)-Pressure_in(2))/InitMassFlux(2)/InitVelocity(2)
+
+      f(1) = (-alpha(1)*NMA/InitMassFluxA(1)-y(1)*AM*(NMA*SpecVolA-NMB*SpecVolB)/InitVelocity(1))/y(5)
+      f(2) = (+alpha(1)*NMB/InitMassFluxB(1)-y(2)*AM*(NMA*SpecVolA-NMB*SpecVolB)/InitVelocity(1))/y(5)
+      f(3) = (+alpha(2)*NMA/InitMassFluxA(2)-y(3)*AM*(NMB*SpecVolB-NMA*SpecVolA)/InitVelocity(2))/y(6)
+      f(4) = (-alpha(2)*NMB/InitMassFluxB(2)-y(4)*AM*(NMB*SpecVolB-NMA*SpecVolA)/InitVelocity(2))/y(6)
+      f(5) = y(7)
+      f(6) = y(8)
+!     DimlessDensityGrad(1) = InitMassFracA(1)*f(1)+InitMassFracB(1)*f(2)
+!     DimlessDensityGrad(2) = InitMassFracA(2)*f(3)+InitMassFracB(2)*f(4)
+!     DimlessDensity(1) = InitMassFracA(1)*y(1)+InitMassFracB(1)*y(2)
+!     DimlessDensity(2) = InitMassFracA(2)*y(3)+InitMassFracB(2)*y(4)
+      f(7) = InitRe(1)/two*(DimlessPresGrad(1)+y(5)*y(5)*(InitMassFracA(1)*f(1)+InitMassFracB(1)*f(2))+two*(InitMassFracA(1)*y(1)+InitMassFracB(1)*y(2))*y(5)*y(7))
+      f(8) = InitRe(2)/two*(DimlessPresGrad(2)+y(6)*y(6)*(InitMassFracA(2)*f(3)+InitMassFracB(2)*f(4))+two*(InitMassFracA(2)*y(3)+InitMassFracB(2)*y(4))*y(6)*y(8))
 
       RETURN
       END
 
 ! ************* analytical Jacoby matrix **************
       SUBROUTINE jacmat_dd1s(n,t,y,a)
-      
       IMPLICIT NONE 
-      
       INTEGER n
       DOUBLE PRECISION t,y(*),a(n,*)
-      
-         a(1,1) = 0.d0
-         a(1,2) = 1.d0
-         a(2,1) = -1.d6*(1.d0+2.d0*y(1)*y(2))
-         a(2,2) = 1.d6*(1.d0-y(1)* y(1))
-
+      a(1,1) = 0.d0
+      a(1,2) = 1.d0
+      a(2,1) = -1.d6*(1.d0+2.d0*y(1)*y(2))
+      a(2,2) = 1.d6*(1.d0-y(1)* y(1))
       RETURN
       END
 
